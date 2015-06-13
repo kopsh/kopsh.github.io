@@ -3,17 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>The Way To Anfleid</title>
+  <title>首页因googleapis导致打开巨慢 | The Way To Anfleid</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="kopsh&apos;s blog | geek | coding | liverpool">
-<meta property="og:type" content="website">
-<meta property="og:title" content="The Way To Anfleid">
-<meta property="og:url" content="http://kopsh.github.io/index.html">
+  <meta name="description" content="建站完成后发现首页打开非常慢，原来是加载googleapis的问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="首页因googleapis导致打开巨慢">
+<meta property="og:url" content="http://kopsh.github.io/2015/06/13/首页因googleapis导致打开巨慢/index.html">
 <meta property="og:site_name" content="The Way To Anfleid">
-<meta property="og:description" content="kopsh&apos;s blog | geek | coding | liverpool">
+<meta property="og:description" content="建站完成后发现首页打开非常慢，原来是加载googleapis的问题。">
+<meta property="og:image" content="http://kopsh.github.io/images/blog_slow1.png">
+<meta property="og:image" content="http://kopsh.github.io/images/blog_slow2.png">
+<meta property="og:updated_time" content="2015-06-13T07:54:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="The Way To Anfleid">
-<meta name="twitter:description" content="kopsh&apos;s blog | geek | coding | liverpool">
+<meta name="twitter:title" content="首页因googleapis导致打开巨慢">
+<meta name="twitter:description" content="建站完成后发现首页打开非常慢，原来是加载googleapis的问题。">
   
   
     <link rel="icon" href="/favicon.png">
@@ -59,9 +62,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-首页因googleapis导致打开巨慢" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-首页因googleapis导致打开巨慢" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/06/13/首页因googleapis导致打开巨慢/" class="article-date">
   <time datetime="2015-06-13T07:37:51.000Z" itemprop="datePublished">2015-06-13</time>
@@ -78,8 +79,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/06/13/首页因googleapis导致打开巨慢/">首页因googleapis导致打开巨慢</a>
+    <h1 class="article-title" itemprop="name">
+      首页因googleapis导致打开巨慢
     </h1>
   
 
@@ -88,11 +89,19 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>建站完成后发现首页打开非常慢，原来是加载googleapis的问题。</p>
-        
-          <p class="article-more-link">
-            <a href="/2015/06/13/首页因googleapis导致打开巨慢/#more">Read More</a>
-          </p>
-        
+<a id="more"></a>
+<p>打开chrome开发者工具，可以看到网站的通信情况</p>
+<p><img src="/images/blog_slow1.png" alt="pic1"></p>
+<p>发现是两个库的问题</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">href</span>=<span class="value">"//fonts.googleapis.com/css?family=Source+Code+Pro"</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>找到import的代码所在文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  landscape git:(master) ✗ grep -r <span class="string">"googleapis"</span> .</span><br><span class="line">./layout/_partial/after-footer.ejs:&lt;script src=<span class="string">"//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"</span>&gt;&lt;/    script&gt;</span><br><span class="line">./layout/_partial/head.ejs:  &lt;link href=<span class="string">"//fonts.googleapis.com/css?family=Source+Code+Pro"</span> rel=<span class="string">"stylesheet"</span> <span class="built_in">type</span>=<span class="string">"text/css"</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>第一个是导入js库，使用sina的在线库</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>script&gt;</span><br></pre></td></tr></table></figure>
+<p>第二个是字体库，删之。</p>
+<p>修改完成后再次打开博客首页，秒开，哦也(^o^)/！</p>
+<p><img src="/images/blog_slow2.png" alt="pic2"></p>
+
       
     </div>
     <footer class="article-footer">
@@ -104,112 +113,41 @@
     </footer>
   </div>
   
-</article>
-
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-Mac上搭建hadoop伪集群所遇问题" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/06/12/Mac上搭建hadoop伪集群所遇问题/" class="article-date">
-  <time datetime="2015-06-12T15:46:31.000Z" itemprop="datePublished">2015-06-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/geek/">geek</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/06/12/Mac上搭建hadoop伪集群所遇问题/">Mac上搭建hadoop伪集群所遇问题</a>
-    </h1>
+    <a href="/2015/06/12/Mac上搭建hadoop伪集群所遇问题/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Mac上搭建hadoop伪集群所遇问题</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Mac上搭建hadoop伪集群所遇的几个问题</p>
-        
-          <p class="article-more-link">
-            <a href="/2015/06/12/Mac上搭建hadoop伪集群所遇问题/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://kopsh.github.io/2015/06/12/Mac上搭建hadoop伪集群所遇问题/" data-id="ciaur9mqh0000nu09b1j53acg" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mac/">mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/problem/">problem</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
 
 
 
+<section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-首页因googleapis导致打开巨慢" data-title="首页因googleapis导致打开巨慢" data-url="http://kopsh.github.io/2015/06/13/首页因googleapis导致打开巨慢/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'kopsh'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+</section>
 
-  
-    <article id="post-欢迎来到Hexo" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/06/12/欢迎来到Hexo/" class="article-date">
-  <time datetime="2015-06-12T05:11:44.000Z" itemprop="datePublished">2015-06-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/geek/">geek</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/06/12/欢迎来到Hexo/">欢迎来到Hexo</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<p>关于个人博客的搭建，请参考<em>ibruce</em>同学的<a href="http://ibruce.info/2013/11/22/hexo-your-blog/?utm_source=tuicool">hexo你的博客</a><br>
-        
-          <p class="article-more-link">
-            <a href="/2015/06/12/欢迎来到Hexo/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://kopsh.github.io/2015/06/12/欢迎来到Hexo/" data-id="ciaur9mqu000enu09guyrvljg" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-  
 </section>
         
           <aside id="sidebar">
