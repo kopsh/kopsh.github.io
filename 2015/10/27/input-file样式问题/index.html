@@ -3,20 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Mac上搭建hadoop伪集群所遇问题 | The Way To Anfleid</title>
+  <title>input file样式问题 | The Way To Anfleid</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Mac上搭建hadoop伪集群所遇的几个问题">
+  <meta name="description" content="这两天写一个上传图片的功能，支持预览以及删除，需要用到input标签,属性为file。结果发现没有办法去改变它的原生样式，在网上找到一个很好的解决方法，就是隐藏该标签，然后把它的功能交于其他控件即可。123&amp;lt;input type=&quot;button&quot; class=&quot;btn-primary&quot; value=&quot;浏览&quot; onclick=&quot;pic.click()&quot; style=&quot;width:80px;&quot;&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mac上搭建hadoop伪集群所遇问题">
-<meta property="og:url" content="http://kopsh.github.io/2015/06/12/Mac上搭建hadoop伪集群所遇问题/index.html">
+<meta property="og:title" content="input file样式问题">
+<meta property="og:url" content="http://kopsh.github.io/2015/10/27/input-file样式问题/index.html">
 <meta property="og:site_name" content="The Way To Anfleid">
-<meta property="og:description" content="Mac上搭建hadoop伪集群所遇的几个问题">
-<meta property="og:image" content="http://kopsh.github.io/images/hadoop_problem1.png">
-<meta property="og:image" content="http://kopsh.github.io/images/hadoop_problem2.png">
-<meta property="og:updated_time" content="2015-06-12T16:47:44.000Z">
+<meta property="og:description" content="这两天写一个上传图片的功能，支持预览以及删除，需要用到input标签,属性为file。结果发现没有办法去改变它的原生样式，在网上找到一个很好的解决方法，就是隐藏该标签，然后把它的功能交于其他控件即可。123&amp;lt;input type=&quot;button&quot; class=&quot;btn-primary&quot; value=&quot;浏览&quot; onclick=&quot;pic.click()&quot; style=&quot;width:80px;&quot;&amp;">
+<meta property="og:updated_time" content="2015-10-27T14:30:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mac上搭建hadoop伪集群所遇问题">
-<meta name="twitter:description" content="Mac上搭建hadoop伪集群所遇的几个问题">
+<meta name="twitter:title" content="input file样式问题">
+<meta name="twitter:description" content="这两天写一个上传图片的功能，支持预览以及删除，需要用到input标签,属性为file。结果发现没有办法去改变它的原生样式，在网上找到一个很好的解决方法，就是隐藏该标签，然后把它的功能交于其他控件即可。123&amp;lt;input type=&quot;button&quot; class=&quot;btn-primary&quot; value=&quot;浏览&quot; onclick=&quot;pic.click()&quot; style=&quot;width:80px;&quot;&amp;">
   
   
     <link rel="icon" href="/favicon.png">
@@ -62,10 +60,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Mac上搭建hadoop伪集群所遇问题" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-input-file样式问题" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/06/12/Mac上搭建hadoop伪集群所遇问题/" class="article-date">
-  <time datetime="2015-06-12T15:46:31.000Z" itemprop="datePublished">2015-06-12</time>
+    <a href="/2015/10/27/input-file样式问题/" class="article-date">
+  <time datetime="2015-10-27T14:15:45.000Z" itemprop="datePublished">2015-10-27</time>
 </a>
     
   <div class="article-category">
@@ -80,7 +78,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Mac上搭建hadoop伪集群所遇问题
+      input file样式问题
     </h1>
   
 
@@ -88,25 +86,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Mac上搭建hadoop伪集群所遇的几个问题</p>
-<a id="more"></a>
-<p>这两天接到一个工作，内容是分析一份用Bloommapfile存储的url文件，于是我便在自己的mac上搭建了一个hadoop伪集群来做这件事情。</p>
-<p>具体的过程我就不赘述了，网上的教程全都非常的详细，例如这篇<a href="http://www.xing-rong.com/centos-hadoop/" target="_blank" rel="external">centos单机部署hadoop伪集群</a>讲的就非常好。我这里只是记录一下我所遇到的问题。</p>
-<hr>
-<h2 id="Problem_1:_使用homebrew安装java，hadoop">Problem 1: 使用homebrew安装java，hadoop</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span><br><span class="line">brew install Caskroom/cask/java</span><br><span class="line">brew install hadoop</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="Problem_2：ssh连接本地失败">Problem 2：ssh连接本地失败</h2><p>Mac os x在设置中开通权限<br><img src="/images/hadoop_problem1.png" alt="first"><br><img src="/images/hadoop_problem2.png" alt="second"></p>
-<hr>
-<h2 id="Problem_3:_修改环境变量">Problem 3: 修改环境变量</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> HADOOP_HOME=/Users/******/Software/hadoop-<span class="number">2.4</span>.<span class="number">1</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin</span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.<span class="number">8.0</span>_45.jdk/Contents/Home</span><br><span class="line"><span class="built_in">export</span> classpath=<span class="variable">$classpath</span>:<span class="variable">$JAVA_HOME</span>/lib</span><br></pre></td></tr></table></figure>
-<p><em>注意：Linux 里面是 .bashrc 而 Mac 是 .bash_profile</em> </p>
+        <p>这两天写一个上传图片的功能，支持预览以及删除，需要用到<a href="http://www.w3school.com.cn/tags/tag_input.asp" target="_blank" rel="external">input标签</a>,属性为file。结果发现没有办法去改变它的原生样式，在网上找到一个很好的解决方法，就是隐藏该标签，然后把它的功能交于其他控件即可。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">class</span>=<span class="value">"btn-primary"</span> <span class="attribute">value</span>=<span class="value">"浏览"</span> <span class="attribute">onclick</span>=<span class="value">"pic.click()"</span> <span class="attribute">style</span>=<span class="value">"width:80px;"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">size</span>=<span class="value">"20"</span> <span class="attribute">name</span>=<span class="value">"upfile"</span> <span class="attribute">id</span>=<span class="value">"upfile"</span> <span class="attribute">style</span>=<span class="value">"border:1px solid #ccc; margin-left:10px;margin-top:10px;"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"file"</span> <span class="attribute">name</span>=<span class="value">"pic"</span> <span class="attribute">value</span>=<span class="value">"浏览"</span> <span class="attribute">style</span>=<span class="value">"display:none"</span> <span class="attribute">onchange</span>=<span class="value">"upfile.value=this.value"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://kopsh.github.io/2015/06/12/Mac上搭建hadoop伪集群所遇问题/" data-id="cig9hc61j000mxo09s43dyf0u" class="article-share-link">Share</a>
+      <a data-url="http://kopsh.github.io/2015/10/27/input-file样式问题/" data-id="cig9hc61g000hxo09tgs8hf5d" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mac/">mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/problem/">problem</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/problem/">problem</a></li></ul>
 
     </footer>
   </div>
@@ -114,19 +102,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/06/13/首页因googleapis导致打开巨慢/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/10/27/2015下半年书单/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          首页因googleapis导致打开巨慢
+          2015下半年书单
         
       </div>
     </a>
   
   
-    <a href="/2015/06/12/欢迎来到Hexo/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/06/13/首页因googleapis导致打开巨慢/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">欢迎来到Hexo</div>
+      <div class="article-nav-title">首页因googleapis导致打开巨慢</div>
     </a>
   
 </nav>
@@ -138,7 +126,7 @@
 
 <section id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="post-Mac上搭建hadoop伪集群所遇问题" data-title="Mac上搭建hadoop伪集群所遇问题" data-url="http://kopsh.github.io/2015/06/12/Mac上搭建hadoop伪集群所遇问题/"></div>
+    <div class="ds-thread" data-thread-key="post-input-file样式问题" data-title="input file样式问题" data-url="http://kopsh.github.io/2015/10/27/input-file样式问题/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
